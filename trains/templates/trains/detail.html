@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Поїзд{% endblock %}
+
+{% block content %}
+<h1>Поїзд</h1>
+<div class="row">
+    <div class="col-md">
+        <table class="table table-striped">
+            <tr>
+                <th>Номер</th>
+                <th>Звідки</th>
+                <th>Куди</th>
+                <th>Час у дорозі</th>
+
+            </tr>
+            <tr>
+                <td> {{object.name}} </td>
+                <td>{{object.from_city}}</td>
+                <td>{{object.to_city}}</td>
+                <td>{{object.travel_time}}</td>
+
+
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'trains:home' %}">
+            <button type="button" class="btn btn-light">Назад до списку</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
+

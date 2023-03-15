@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% block title %}Пошук маршруту{% endblock %}
+
+{% block content %}
+<h1>Пошук маршруту</h1>
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        {% if routes %}
+            <h3>Маршрут{% if routes|length != 1 %}и {% endif %}
+                з м. {{ cities.from_city.name }} до м.{{ cities.to_city.name }} </h3>
+        <br>
+            {% for route in routes %}
+                <form action="{% url 'add_route'%}" method="post"> {% csrf_token %}
+                    <input type="hidden" name="from_city" value="{{ cities.from_city.id }}">
+                    <input type="hidden" name="to_city" value="{{ cities.to_city.id }}">
+                    <input type="hidden" name="total_time" value="{{ route.total_time }}">
+                    <input type="hidden" name="trains"
+                           value="{% for train in route.trains%}{{ train.id }},{% endfor %}">
+                {% if forloop.first %}<h4>Найкоротший маршрут</h4> {% endif %}
+                <h5>Час у дорозі  {{ route.total_time }}</h5>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Список поїздів за цим маршрутом</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for train in route.trains%}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>Поїзд {{ train.name }} з м.  {{ train.from_city.name }}
+                          до м.{{ train.to_city.name }} </td>
+
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+                    <button type="submit" class="btn btn-success">Зберегти</button>
+                </form>
+        <br><br>
+
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% url 'find_routes' as action%}
+{% include 'form.html' with button='Найти' action=action%}
+
+{% endblock %}
