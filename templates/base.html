@@ -26,14 +26,14 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item {% if request.path == cities_home_url%}active {% endif %}	">
-            <a class="nav-link" href="{% url 'cities:home'%}">Города </a>
+            <a class="nav-link" href="{% url 'cities:home'%}">Міста</a>
           </li>
           <li class="nav-item {% if request.path == trains_home_url%}active {% endif %}">
-            <a class="nav-link" href="{% url 'trains:home'%}">Поезда</a>
+            <a class="nav-link" href="{% url 'trains:home'%}">Поїзди</a>
           </li>
           <li class="nav-item
            {% if request.path == route_list%} active {% endif %}">
-            <a class="nav-link" href="{% url 'list'%}">Маршруты</a>
+            <a class="nav-link" href="{% url 'list'%}">Маршрути</a>
           </li>
           {% if user.is_authenticated%}
           <li class="nav-item dropdown
